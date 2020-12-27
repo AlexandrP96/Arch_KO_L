@@ -8,7 +8,7 @@ import android.os.Bundle
 // core
 // historyScreen
 // model - ready
-// repository
+// repository - ready
 // utils - ready
 // gradle
 
