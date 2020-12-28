@@ -1,0 +1,51 @@
+apply plugin: 'com.android.dynamic-feature'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion Config.compile_sdk
+
+    defaultConfig {
+        minSdkVersion Config.min_sdk
+        targetSdkVersion Config.target_sdk
+        versionCode Releases.version_code
+        versionName Releases.version_name
+    }
+}
+
+dependencies {
+    implementation project(Modules.app)
+    implementation project(Modules.model)
+    implementation project(Modules.repository)
+    implementation project(Modules.core)
+    
+    implementation Tools.multidex
+    implementation Design.appcompat
+
+    implementation Design.material
+
+    implementation Kotlin.core
+    implementation Kotlin.stdlib
+    implementation Kotlin.coroutines_core
+    implementation Kotlin.coroutines_android
+
+    implementation Koin.koin_android
+    implementation Koin.koin_view_model
+
+    implementation Room.runtime
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    kapt Room.compiler
+    implementation Room.room_ktx
+
+    testImplementation TestImpl.junit
+    androidTestImplementation TestImpl.runner
+    androidTestImplementation TestImpl.espresso
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+repositories {
+    mavenCentral()
+}
