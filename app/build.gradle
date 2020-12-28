@@ -47,6 +47,7 @@ dependencies {
     implementation Koin.koin_view_model
 
     implementation Room.runtime
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     kapt Room.compiler
     implementation Room.room_ktx
 

@@ -1,12 +1,13 @@
-package ru.alexbox.arch_gb_l
+package ru.alexbox.arch_gb_l.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ru.alexbox.arch_gb_l.R
 
-// app
+// app -
 // buildSrc - ready
-// core
-// historyScreen
+// core - ready
+// historyScreen - ready
 // model - ready
 // repository - ready
 // utils - ready
