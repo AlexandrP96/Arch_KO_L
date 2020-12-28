@@ -48,6 +48,8 @@ dependencies {
 
     implementation Room.runtime
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     kapt Room.compiler
     implementation Room.room_ktx
 
