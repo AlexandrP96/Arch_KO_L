@@ -1,7 +1,12 @@
 package ru.alexbox.arch_gb_l.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -15,6 +20,8 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.splitinstall.SplitInstallManager
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import com.google.android.play.core.splitinstall.SplitInstallRequest
 import org.koin.android.scope.currentScope
 import ru.alexbox.arch_gb_l.R
 import ru.alexbox.arch_gb_l.di.injectDependencies
@@ -29,10 +36,12 @@ import ru.alexbox.model.AppState
 import ru.alexbox.model.userData.DataModel
 import ru.alexbox.utils.ui.viewById
 
-// for init commit
 
 private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG = "74a54328-5d62-46bf-ab6b-cbf5fgt0-092395"
 private const val REQUEST_CODE = 42
+
+private const val HISTORY_ACTIVITY_PATH = "geekbrains.ru.history.view.history.HistoryActivity"
+private const val HISTORY_ACTIVITY_FEATURE_NAME = "historyScreen"
 
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
@@ -90,6 +99,47 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         iniViewModel()
         initViews()
         checkForUpdates()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        menu?.findItem(R.id.menu_screen_settings)?.isVisible =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    @SuppressLint("InlinedApi")
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_history -> {
+                splitInstallManager = SplitInstallManagerFactory.create(applicationContext)
+                val request =
+                    SplitInstallRequest
+                        .newBuilder()
+                        .addModule(HISTORY_ACTIVITY_FEATURE_NAME)
+                        .build()
+
+                splitInstallManager
+                    .startInstall(request)
+                    .addOnSuccessListener {
+                        val intent = Intent().setClassName(packageName, HISTORY_ACTIVITY_PATH)
+                        startActivity(intent)
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            applicationContext,
+                            "Couldn't download feature: " + it.message,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                true
+            }
+            R.id.menu_screen_settings -> {
+                startActivityForResult(Intent(Settings.Panel.ACTION_INTERNET_CONNECTIVITY), 42)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onResume() {

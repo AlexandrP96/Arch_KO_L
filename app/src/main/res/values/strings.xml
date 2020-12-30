@@ -14,4 +14,6 @@
     <string name="menu_title_history">History</string>
     <string name="title_historyscreenfeature">History Screen</string>
     <string name="snackbar_update">Update</string>
+
+    <string name="settings">Settings</string>
 </resources>
