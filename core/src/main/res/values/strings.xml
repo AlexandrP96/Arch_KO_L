@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">core</string>
+
+    <string name="error">Error</string>
+    <string name="dialog_tittle">Warning</string>
+    <string name="empty_server">Empty server or response</string>
+    <string name="dialog_title_offline">No connection</string>
+    <string name="dialog_message_offline">Please turn on internet.</string>
+</resources>
