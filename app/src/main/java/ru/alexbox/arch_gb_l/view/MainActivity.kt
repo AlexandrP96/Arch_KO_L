@@ -29,14 +29,7 @@ import ru.alexbox.model.AppState
 import ru.alexbox.model.userData.DataModel
 import ru.alexbox.utils.ui.viewById
 
-// app -
-// buildSrc - ready
-// core - ready
-// historyScreen - ready
-// model - ready
-// repository - ready
-// utils - ready
-// gradle
+// for init commit
 
 private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG = "74a54328-5d62-46bf-ab6b-cbf5fgt0-092395"
 private const val REQUEST_CODE = 42
